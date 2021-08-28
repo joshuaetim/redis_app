@@ -1,0 +1,101 @@
+{% extends "layouts/app.html" %}
+
+{% block content %}
+<div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/profile_city.jpg'); height: 30vh">
+    {# <div class="container">
+      <div class="row">
+        {# <div class="col-md-6">
+          <h1 class="title">Your Story Starts With Us.</h1>
+          <h4>Every landing page needs a small description after the big bold title, that&apos;s why we added this text here. Add here all the information that can make you or your product create the first impression.</h4>
+          <br>
+          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn btn-danger btn-raised btn-lg">
+            <i class="fa fa-play"></i> Watch video
+          </a>
+        </div> #}
+      {# </div>
+    </div> #} 
+</div>
+<div class="main main-raised">
+    <div class="container">
+      <div class="section">
+        <div class="row">
+            <div class="col-md-4 card card-4 text-center">
+                <div class="col-md-6 ml-auto mr-auto">
+                    <img src="../assets/img/faces/avatar.jpg" alt="Thumbnail Image" class="img-raised rounded-circle img-fluid">
+                </div>
+                <div class="container">
+                    <h3>{{auth.fullname}}</h3>
+                    <p><b>Email:</b> {{auth.email}}</p>
+                    <p><b>Username:</b> {{auth.username}}</p>
+                    <p><b>Bio:</b> {{auth.bio}}</p>
+                    <p><b>Date Registered:</b> {{auth.created}}</p>
+                </div>
+                <div class="card-footer justify-content-center">
+                    <a href="#pablo" class="btn btn-link btn-just-icon"><i class="fa fa-twitter"></i></a>
+                    <a href="#pablo" class="btn btn-link btn-just-icon"><i class="fa fa-instagram"></i></a>
+                    <a href="#pablo" class="btn btn-link btn-just-icon"><i class="fa fa-facebook-square"></i></a>
+                </div>
+            </div>
+            <div class="col-md-8 pl-5">
+                <h3>Edit Profile</h3>
+                <form class="contact-form" method="post" action="updateProfile">
+                    {% if flash.error %}
+                        <div class="text-danger text-sm">{{flash.error}}</div>
+                    {% endif %}
+                    {% if flash.success %}
+                        <div class="text-success text-sm">{{flash.success}}</div>
+                    {% endif %}
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Your Name</label>
+                          <input type="text" class="form-control" name="fullname" value="{{auth.fullname}}">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Your Email</label>
+                          <input type="email" class="form-control" name="email" value="{{auth.email}}">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="bmd-label-floating">Password (leave blank if unchanged)</label>
+                              <input type="password" class="form-control" name="password">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="bmd-label-floating">Password confirm</label>
+                              <input type="password" class="form-control" name="password_confirm">
+                            </div>
+                          </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleMessage" class="bmd-label-floating">Your Bio (4 - 150 characters)</label>
+                        <textarea class="form-control" rows="4" id="exampleMessage" name="bio">{{auth.bio}}</textarea>
+                      </div>
+                    <input type="hidden" name="token" value="{{csrf_token()}}">
+                    <div class="row">
+                      <div class="col-md-4 ml-auto mr-auto text-center">
+                        <button class="btn btn-primary btn-raised" type="submit">
+                          Send Message
+                        </button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <hr>
+        <div>
+          <h3>Your posts</h3>
+          {{ posts|length }} total
+          {{ include('posts/partials/list.html', posts) }}
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock content %}
