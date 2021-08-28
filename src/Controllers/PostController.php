@@ -33,7 +33,19 @@ class PostController
     {
         $auth = authCheck();
 
-        $postIds = $this->client->zrevrange("posts_by_score", 0, 50);
+        $sortBy = $_GET['sort_by'] ?? "score";
+
+        // return jsonResponse($sortBy);
+
+        if($sortBy == "score"){
+            $postIds = $this->client->zrevrange("posts_by_score", 0, 50);
+        }
+        else{
+            $postIds = $this->client->zrevrange("posts_by_time", 0, 50);
+        }
+
+        // return jsonResponse($postIds);
+
 
         $posts = [];
 
@@ -43,7 +55,7 @@ class PostController
 
         // return jsonResponse($posts);
 
-        $data = ['title' => 'Blog', 'posts' => $posts, 'auth' => $auth];
+        $data = ['title' => 'Blog', 'posts' => $posts, 'auth' => $auth, 'sort_by' => $sortBy];
 
         return view('posts/index.html', $data);
     }

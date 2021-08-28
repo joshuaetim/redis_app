@@ -18,7 +18,17 @@
 <div class="main main-raised">
     <div class="container">
         <div class="section">
-            <h2>Blog</h2>
+            <h2>
+              Blog
+              <form action="/posts" method="get" class="float-right" id="sort" onchange="document.querySelector('#sort').submit()">
+                <div class="form-group">
+                  <select name="sort_by" id="sort" class="form-control border">
+                    <option value="time" {% if sort_by == "time" %} selected {% endif %}>Sort by time</option>
+                    <option value="score" {% if sort_by == "score" %} selected {% endif %}>Sort by popularity</option>
+                  </select>
+                </div>
+              </form>
+            </h2>
             {{ posts|length }} total
             {% for post in posts %}       
                 <div class="row justify-content-center card">
