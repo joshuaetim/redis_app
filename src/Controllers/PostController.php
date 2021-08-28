@@ -69,11 +69,11 @@ class PostController
      * - Get post Data with getPost method
      * - Return view with Data Loaded
      */
-    public function single(ServerRequestInterface $request) : Response
+    public function single(ServerRequestInterface $request, array $args) : Response
     {
         $auth = authCheck();
 
-        $postId = RequestHandler::getLastParam($request);
+        $postId = $args['id'];
 
         $post = PostHandler::getPost($postId);
 
@@ -141,8 +141,10 @@ class PostController
      * Show page to edit post details
      * request - /posts/{id}/edit
      */
-    public function edit(ServerRequestInterface $request)
+    public function edit(ServerRequestInterface $request, array $args): Response
     {
+        $postId = $args['id'];
 
+        // return jsonResponse($args);
     }
 }

@@ -118,7 +118,7 @@ $router->group('', function(\League\Route\RouteGroup $route)
 
     $route->post('/add-post', [RedisApp\Controllers\PostController::class, 'store']);
 
-    $route->post('/posts/{id}/edit', [RedisApp\Controllers\PostController::class, 'edit']);
+    $route->get('/posts/{id}/edit', [RedisApp\Controllers\PostController::class, 'edit']);
 
     $route->post('/updateProfile', [RedisApp\Controllers\UserController::class, 'updateProfile']);
 

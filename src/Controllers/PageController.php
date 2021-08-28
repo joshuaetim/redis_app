@@ -30,11 +30,11 @@ class PageController
         return view('home.html', $data);
     }
 
-    public function displayProfile(ServerRequestInterface $request): Response
+    public function displayProfile(ServerRequestInterface $request, array $args): Response
     {
         $auth = authCheck();
 
-        $username = RequestHandler::getLastParam($request);
+        $username = $args['username'];
 
         if($auth['username'] == $username) return redirect('/profile');
 
