@@ -34,6 +34,17 @@
                     {{post.body|nl2br}}
                 </div>
             </div>
+            <br>
+            <form action="/like-post" method="post" id="likeForm">
+              <input type="hidden" name="id" value="{{post.id}}">
+              <input type="hidden" name="token" value="{{csrf_token()}}">
+            </form>
+            {% if voted %}
+              <a href="#" title="Unlike this post" onclick="document.querySelector('#likeForm').submit()"><i class="fa fa-heart"></i></a> {{post.votes}}
+            {% else %}
+              <a href="#" title="Like this post" onclick="document.querySelector('#likeForm').submit()"><i class="fa fa-heart-o"></i></a> {{post.votes}}
+            {% endif %}
+            <br>
             <br><a href="/posts"><< All Posts</a>
       </div>
     </div>

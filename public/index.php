@@ -62,6 +62,8 @@ $router->group('', function(\League\Route\RouteGroup $route)
 
     $route->post('/add-post', [RedisApp\Controllers\PostController::class, 'store']);
 
+    $route->post('/like-post', [RedisApp\Controllers\PostController::class, 'like']);
+
     $route->get('/posts/{id}/edit', [RedisApp\Controllers\PostController::class, 'edit']);
 
     $route->post('/update-post', [RedisApp\Controllers\PostController::class, 'update']);

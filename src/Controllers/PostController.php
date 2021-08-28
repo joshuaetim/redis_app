@@ -33,7 +33,7 @@ class PostController
     {
         $auth = authCheck();
 
-        $postIds = $this->client->lrange("timeline", 0, 50);
+        $postIds = $this->client->zrevrange("posts_by_score", 0, 50);
 
         $posts = [];
 
@@ -79,9 +79,16 @@ class PostController
 
         if(empty($post)) return redirect('/posts');
 
+        // check voted status
+        $voted = false;
+
+        if(!empty($auth['id']) && $this->client->sismember("voted:$postId", $auth['id'])){
+            $voted = true;
+        }
+
         // return jsonResponse($post);
 
-        $data = ['title' => $post['title']. ' - Post', 'auth' => $auth, 'post' => $post];
+        $data = ['title' => $post['title']. ' - Post', 'auth' => $auth, 'post' => $post, 'voted' => $voted];
 
         return view('posts/single.html', $data);
     }
@@ -120,21 +127,30 @@ class PostController
                         "user_id", $auth['id'],
                         "time", time(),
                         "title", $title,
-                        "body", $body
+                        "body", $body,
+                        "votes", 1
                     );
         
         // add to user's owned posts
         $this->client->lpush($auth['username'].":posts", $postId);
         
-        // get all followers
-        $followers = $this->client->zrange("followers:{$auth['id']}", 0, -1);
-        $followers[] = $auth['id']; // you are your follower too
+        // // get all followers
+        // $followers = $this->client->zrange("followers:{$auth['id']}", 0, -1);
+        // $followers[] = $auth['id']; // you are your follower too
 
-        foreach($followers as $fid){
-            $this->client->lpush("posts:$fid", $postId);
-        }
+        // foreach($followers as $fid){
+        //     $this->client->lpush("posts:$fid", $postId);
+        // }
 
-        $this->client->lpush("timeline", $postId); // for all site visitors
+        // add post to zset time sorted
+        $this->client->zadd('posts_by_time', time(), $postId);
+
+        // add post to score sorted zset
+        $this->client->zadd('posts_by_score', time() + 432, $postId);
+
+        // add user to voters of this post
+        $this->client->sadd("voted:$postId", $auth['id']);
+        
 
         return redirect('/posts');
     }
@@ -198,5 +214,37 @@ class PostController
         
 
         // return jsonResponse($postOwner);
+    }
+
+    /**
+     * Like the post
+     * Procedure:
+     * check if user has voted
+     * if yes, then undo vote, and subract 432 from score, and remove 1 from post votes
+     * else then (1) add to voted set and (2) add 432 to score, and add 1 to post votes
+     */
+    public function like(ServerRequestInterface $request): Response
+    {
+        $auth = authCheck();
+
+        $requestBody = $request->getParsedBody();
+
+        $postId = $requestBody['id'];
+
+        if($this->client->sismember("voted:$postId", $auth['id'])){
+            // already voted
+            $this->client->srem("voted:$postId", $auth['id']);
+            $this->client->zincrby("posts_by_score", -432, $postId);
+            $this->client->hincrby("post:$postId", "votes", -1);
+            
+            return redirect("/posts/$postId");
+        }
+
+        // not voted
+        $this->client->sadd("voted:$postId", $auth['id']);
+        $this->client->zincrby("posts_by_score", 432, $postId);
+        $this->client->hincrby("post:$postId", "votes", 1);
+        
+        return redirect("/posts/$postId");
     }
 }
