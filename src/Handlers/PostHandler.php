@@ -26,11 +26,13 @@ class PostHandler
      * Return data to method
      */
 
-    public static function getPost($postId, $preview = false)
+    public static function getPost($postId, $preview = false): array
     {
         $self = new static; // instantiate object
 
         $post = $self->client->hgetall("post:$postId");
+
+        if(empty($post['user_id'])) return [];
 
         $post['id'] = $postId;
         $user = $self->client->hgetall("user:{$post['user_id']}");
@@ -48,7 +50,7 @@ class PostHandler
         return $post;
     }
 
-    public static function getUserPosts($username, $start = 0, $stop = -1)
+    public static function getUserPosts($username, $start = 0, $stop = -1): array
     {
         $self = new static;
 

@@ -1,0 +1,58 @@
+{% extends "layouts/app.html" %}
+
+{% block content %}
+<div class="page-header header-filter" data-parallax="true" style="background-image: url('/../assets/img/profile_city.jpg'); height: 30vh">
+    {# <div class="container">
+      <div class="row">
+        {# <div class="col-md-6">
+          <h1 class="title">Your Story Starts With Us.</h1>
+          <h4>Every landing page needs a small description after the big bold title, that&apos;s why we added this text here. Add here all the information that can make you or your product create the first impression.</h4>
+          <br>
+          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn btn-danger btn-raised btn-lg">
+            <i class="fa fa-play"></i> Watch video
+          </a>
+        </div> #}
+      {# </div>
+    </div> #} 
+</div>
+<div class="main main-raised">
+    <div class="container">
+      <div class="section">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h3>Edit Post</h3>
+                <form class="contact-form" method="post" action="/update-post">
+                    {% if flash.error %}
+                        <div class="text-danger text-sm">{{flash.error}}</div>
+                    {% endif %}
+                    {% if flash.success %}
+                        <div class="text-success text-sm">{{flash.success}}</div>
+                    {% endif %}
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control h3" name="title" value="{{post.title}}">
+                            <label class="bmd-label-floating">Post Title (4 - 70 characters)</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control h5" rows="4" id="exampleMessage" name="body">{{post.body}}</textarea>
+                        <label for="exampleMessage" class="bmd-label-floating">Content (10 - 2000 characters)</label>
+                      </div>
+                    <input type="hidden" name="token" value="{{csrf_token()}}">
+                    <input type="hidden" name="id" value="{{post.id}}">
+                    <div class="row">
+                      <div class="col-md-4 ml-auto mr-auto text-center">
+                        <button class="btn btn-primary btn-raised" type="submit">
+                          Send Message
+                        </button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock content %}

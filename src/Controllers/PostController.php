@@ -43,7 +43,7 @@ class PostController
 
         // return jsonResponse($posts);
 
-        $data = ['title' => 'Create Post', 'posts' => $posts, 'auth' => $auth];
+        $data = ['title' => 'Blog', 'posts' => $posts, 'auth' => $auth];
 
         return view('posts/index.html', $data);
     }
@@ -76,6 +76,8 @@ class PostController
         $postId = $args['id'];
 
         $post = PostHandler::getPost($postId);
+
+        if(empty($post)) return redirect('/posts');
 
         // return jsonResponse($post);
 
@@ -143,8 +145,58 @@ class PostController
      */
     public function edit(ServerRequestInterface $request, array $args): Response
     {
-        $postId = $args['id'];
+        $post = PostHandler::getPost($args['id']);
+
+        if(empty($post)) return redirect('/posts');
+
+        $auth = authCheck();
+
+        // check if post belongs to owner
+        if($auth['id'] !== $post['user_id']) return redirect('/posts');
+
+        $data = ['title' => 'Edit Post', 'auth' => $auth, 'post' => $post];
+
+        return view('posts/edit.html', $data);
 
         // return jsonResponse($args);
+    }
+
+    /**
+     * Update the post information
+     * Only the title and body is affected. 
+     * TODO: add modified time to the post
+     */
+    public function update(ServerRequestInterface $request): Response 
+    {
+        $auth = authCheck();
+
+        $requestBody = $request->getParsedBody();
+
+        $title = $requestBody['title'];
+        $body = $requestBody['body'];
+        $id = $requestBody['id'];
+
+        // check if post actually belongs to user
+
+        $postOwner = PostHandler::getPost($id)['user_id'];
+
+        if($auth['id'] !== $postOwner) return redirect('/posts');
+
+        if(strlen(trim($title)) < 4 || strlen(trim($title)) > 70 || strlen(trim($body)) < 10 || strlen(trim($body)) > 10000){
+            return errorRedirect('Please fill in the details correctly', "/posts/$id/edit");
+        }
+
+        // update post
+        $this->client->hset("post:$id",
+                        "title", $title,
+                        "body", $body
+                    );
+
+        $_SESSION['flash']['success'] = "Post Updated Successfully";
+
+        return redirect("/posts/$id");
+        
+
+        // return jsonResponse($postOwner);
     }
 }
