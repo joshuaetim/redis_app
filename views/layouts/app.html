@@ -33,10 +33,13 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
+          <li class="dropdown nav-item">
+            <a href="/" class="nav-link">Home</a>
+          </li>
           {% if auth %}
             <li class="dropdown nav-item">
               <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                <i class="material-icons">account_circle</i> Dashboard
+                <i class="material-icons">account_circle</i> {{auth.username}}
               </a>
               <div class="dropdown-menu dropdown-with-icons">
                 <a href="/profile" class="dropdown-item">
@@ -67,21 +70,7 @@
               Blog
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://twitter.com/CreativeTim" target="_blank" data-original-title="Follow us on Twitter" rel="nofollow">
-              <i class="fa fa-twitter"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://www.facebook.com/CreativeTim" target="_blank" data-original-title="Like us on Facebook" rel="nofollow">
-              <i class="fa fa-facebook-square"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://www.instagram.com/CreativeTimOfficial" target="_blank" data-original-title="Follow us on Instagram" rel="nofollow">
-              <i class="fa fa-instagram"></i>
-            </a>
-          </li>
+          
         </ul>
       </div>
     </div>
@@ -94,33 +83,25 @@
       <nav class="float-left">
         <ul>
           <li>
-            <a href="https://www.creative-tim.com/">
-              Creative Tim
+            <a href="/posts">
+              Home Page
             </a>
           </li>
+
           <li>
-            <a href="https://www.creative-tim.com/presentation">
-              About Us
-            </a>
-          </li>
-          <li>
-            <a href="https://www.creative-tim.com/blog">
+            <a href="/posts">
               Blog
             </a>
           </li>
-          <li>
-            <a href="https://www.creative-tim.com/license">
-              Licenses
-            </a>
-          </li>
+          
         </ul>
       </nav>
       <div class="copyright float-right">
         &copy;
         <script>
           document.write(new Date().getFullYear())
-        </script>, made with <i class="material-icons">favorite</i> by
-        <a href="https://www.creative-tim.com/" target="_blank">Creative Tim</a> for a better web.
+        </script>
+        <a href="/">RedisApp</a>
       </div>
     </div>
   </footer>
