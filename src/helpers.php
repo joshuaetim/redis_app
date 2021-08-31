@@ -65,8 +65,12 @@ function redis()
     $parameters = null;
 
     if($_ENV['APP_ENV'] == "production"){
-        $parameters = "sth else";
+        $parameters = array(
+            'host' => parse_url($_ENV['REDISCLOUD_URL'], PHP_URL_HOST),
+            'port' => parse_url($_ENV['REDISCLOUD_URL'], PHP_URL_PORT),
+            'password' => parse_url($_ENV['REDISCLOUD_URL'], PHP_URL_PASS),
+        );
     }
-    
+
     return new \Predis\Client($parameters, ['prefix' => 'pred:']);
 }
