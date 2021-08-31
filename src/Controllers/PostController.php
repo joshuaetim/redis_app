@@ -15,7 +15,7 @@ class PostController
 
     public function __construct()
     {
-        $this->client = new Client(null, ['prefix' => 'pred:']);
+        $this->client = redis();
     }
 
     /**

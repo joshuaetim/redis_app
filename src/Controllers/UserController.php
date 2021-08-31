@@ -14,7 +14,7 @@ class UserController
 
     public function __construct()
     {
-        $this->client = new Client(null, ['prefix' => 'pred:']);
+        $this->client = redis();
     }
 
     public function profile(ServerRequestInterface $request): Response

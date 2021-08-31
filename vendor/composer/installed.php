@@ -1,22 +1,31 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => '8bc40a7a6820b6f544698e64c3d83daca106fed9',
         'name' => 'joshua/redisphp',
         'dev' => true,
     ),
     'versions' => array(
+        'graham-campbell/result-type' => array(
+            'pretty_version' => 'v1.0.2',
+            'version' => '1.0.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../graham-campbell/result-type',
+            'aliases' => array(),
+            'reference' => '84afea85c6841deeea872f36249a206e878a5de0',
+            'dev_requirement' => false,
+        ),
         'joshua/redisphp' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => '8bc40a7a6820b6f544698e64c3d83daca106fed9',
             'dev_requirement' => false,
         ),
         'laminas/laminas-diactoros' => array(
@@ -84,6 +93,15 @@
             'replaced' => array(
                 0 => '~1.0',
             ),
+        ),
+        'phpoption/phpoption' => array(
+            'pretty_version' => '1.8.0',
+            'version' => '1.8.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpoption/phpoption',
+            'aliases' => array(),
+            'reference' => '5455cb38aed4523f99977c4a12ef19da4bfe2a28',
+            'dev_requirement' => false,
         ),
         'predis/predis' => array(
             'pretty_version' => 'v1.1.7',
@@ -178,6 +196,15 @@
             'reference' => '9174a3d80210dca8daa7f31fec659150bbeabfc6',
             'dev_requirement' => false,
         ),
+        'symfony/polyfill-php80' => array(
+            'pretty_version' => 'v1.23.1',
+            'version' => '1.23.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/polyfill-php80',
+            'aliases' => array(),
+            'reference' => '1100343ed1a92e3a38f9ae122fc0eb21602547be',
+            'dev_requirement' => false,
+        ),
         'twig/twig' => array(
             'pretty_version' => 'v3.3.2',
             'version' => '3.3.2.0',
@@ -185,6 +212,15 @@
             'install_path' => __DIR__ . '/../twig/twig',
             'aliases' => array(),
             'reference' => '21578f00e83d4a82ecfa3d50752b609f13de6790',
+            'dev_requirement' => false,
+        ),
+        'vlucas/phpdotenv' => array(
+            'pretty_version' => 'v5.3.0',
+            'version' => '5.3.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../vlucas/phpdotenv',
+            'aliases' => array(),
+            'reference' => 'b3eac5c7ac896e52deab4a99068e3f4ab12d9e56',
             'dev_requirement' => false,
         ),
         'zendframework/zend-diactoros' => array(

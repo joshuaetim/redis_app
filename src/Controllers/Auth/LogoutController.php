@@ -13,7 +13,7 @@ class LogoutController
 
     public function __construct()
     {
-        $this->client = new Client(null, ['prefix' => 'pred:']);
+        $this->client = redis();
     }
 
     public function logout(ServerRequestInterface $request): Response

@@ -59,3 +59,14 @@ function verifyToken($token)
     }
     return false;
 }
+
+function redis()
+{
+    $parameters = null;
+
+    if($_ENV['APP_ENV'] == "production"){
+        $parameters = "sth else";
+    }
+    
+    return new \Predis\Client($parameters, ['prefix' => 'pred:']);
+}

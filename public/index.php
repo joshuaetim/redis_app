@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 use League\Route\Http\Exception\NotFoundException;
 
-
 require_once '../vendor/autoload.php';
 
 define('BASEPATH', dirname(__DIR__));
+
+$dotenv = Dotenv\Dotenv::createImmutable(BASEPATH);
+$dotenv->load();
 
 session_start();
 
@@ -76,13 +78,7 @@ $router->group('', function(\League\Route\RouteGroup $route)
 
 
 $router->get('/test', function(){
-    $auth = authCheck();
-
-    $data = ['title' => $auth['username'].' profile', 'auth' => $auth, 'posts' => []];
-
-    // return jsonResponse($data);
-
-    return view('profile.html', $data);
+    return textResponse($_ENV['APP_ENV']);
 });
 
 $router->middleware(new \RedisApp\Middleware\CsrfMiddleware);
