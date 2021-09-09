@@ -50,16 +50,14 @@ class RegisterController
             return redirect('/register');
         }
 
-
+        // check if username exists
         if($this->client->hget('users', $username)){
-            // return textResponse('bad user');
             $_SESSION['flash']['error'] = "The username is already selected";
             return redirect('/register');
         }
 
         // check email exists
         if($this->client->hget('emails', $email)){
-            // return textResponse('bad user');
             $_SESSION['flash']['error'] = "This email is in use. <a href='/login'>Login</a>?";
             return redirect('/register');
         }
@@ -86,8 +84,5 @@ class RegisterController
         setcookie("auth", $authSecret, time()+(60*60));
 
         return redirect('/');
-
-
-        return new Response\TextResponse($requestBody['username']);
     }
 }
