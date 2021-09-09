@@ -7,6 +7,7 @@ RedisApp is an attempt to use Redis as a primary database instead of a caching s
 You can download or clone this repository. To run the application on your system, run the following command:
 
 ```bash
+composer install
 php -S localhost:8000 -t public/
 ```
 
