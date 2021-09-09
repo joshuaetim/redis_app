@@ -103,7 +103,7 @@ function redis()
 
 ## Online Access
 
-This App is Hosted online at [https://joshredisapp.herokuapp.com/](https://joshredisapp.herokuapp.com/). You can decide to play around creating and editing posts.
+This App is Hosted online at [https://joshredisapp.herokuapp.com/](https://joshredisapp.herokuapp.com/).
 
 ## Conclusion
 
