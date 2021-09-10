@@ -107,11 +107,11 @@ function redis()
 
 This App is Hosted online at [https://joshredisapp.herokuapp.com/](https://joshredisapp.herokuapp.com/).
 
-## Conclusion
+## Discussion
 
-I had a lot of fun organizing the data structure for this small system. Inspiration for the voting and ranking was taken from the book "Redis in Action" by Josiah Carlson. Having used this application and tested it for short and long-term persistence, I believe Redis can efficiently replace a conventional database. Although one bottleneck is the size available being limited to a part of your RAM, the tradeoff is justified when speed is very important. 
+This was a demonstration of Redis as a primary database. The discussion is on my [Medium](https://joshua-etim.medium.com/) profile. Having used this application and tested it for persistence, I believe Redis can efficiently replace a conventional database. Although one bottleneck is the size available being limited to a part of your RAM, the tradeoff is justified in cases where speed is important. 
 
-Sidenote: A blog, I believe, isn't the most popular justification for using Redis especially when users can understandably wait a second or two for your SQL/NoSQL conventional database to read/write data.
+Sidenote: A blog, I believe, isn't the most popular justification for using Redis as a primary database. This is for testing purposes and should not be used in production environment.
 
 ## Feedback
 Feedback and further advice would be appreciated. Please direct them to etimjoshua4@gmail.com
