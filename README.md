@@ -11,6 +11,8 @@ composer install
 php -S localhost:8000 -t public/
 ```
 
+Please note that you should have PHP and Composer installed on your local system.
+
 ## Basic Structure
 
 The App structure uses the [dotenv](https://github.com/vlucas/phpdotenv) package to handle environment configs, [Laminas\Diactoros](https://docs.laminas.dev/laminas-diactoros/) for PSR implementations, [League\Route](https://route.thephpleague.com/) for routing, and [Laminas\HttpHandlerRunner](https://docs.laminas.dev/laminas-httphandlerrunner/).
