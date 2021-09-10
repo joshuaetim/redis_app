@@ -24,7 +24,14 @@
             <h2>
               {{post.title}} 
               {% if post.user.username == auth.username %}
-                <a href="/posts/{{post.id}}/edit"><i class="fa fa-edit float-right" title="Edit"></i></a>
+                <div class="float-right">
+                  <a href="/posts/{{post.id}}/edit"><i class="fa fa-edit" title="Edit"></i></a>
+                  <a href="#" onclick="event.preventDefault(); var x = confirm('Confirm delete? This cannot be undone'); if(x){document.querySelector('#deleteForm').submit()}"><i class="fa fa-trash ml-3" title="Delete"></i></a>
+                  <form action="/delete-post" method="post" id="deleteForm">
+                    <input type="hidden" name="token" value="{{csrf_token()}}">
+                    <input type="hidden" name="id" value="{{post.id}}">
+                  </form>
+                </div>
               {% endif %}
             </h2> 
             <p class="text-muted">By <a href="/u/{{post.user.username}}">{{post.user.username}}</a> - {{post.time}}</p>
@@ -40,9 +47,9 @@
               <input type="hidden" name="token" value="{{csrf_token()}}">
             </form>
             {% if voted %}
-              <a href="#" title="Unlike this post" onclick="document.querySelector('#likeForm').submit()"><i class="fa fa-heart"></i></a> {{post.votes}}
+              <a href="#" title="Unlike this post" onclick="event.preventDefault(); document.querySelector('#likeForm').submit()"><i class="fa fa-heart"></i></a> {{post.votes}}
             {% else %}
-              <a href="#" title="Like this post" onclick="document.querySelector('#likeForm').submit()"><i class="fa fa-heart-o"></i></a> {{post.votes}}
+              <a href="#" title="Like this post" onclick="event.preventDefault(); document.querySelector('#likeForm').submit()"><i class="fa fa-heart-o"></i></a> {{post.votes}}
             {% endif %}
             <br>
             <br><a href="/posts"><< All Posts</a>

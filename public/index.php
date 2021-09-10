@@ -70,6 +70,8 @@ $router->group('', function(\League\Route\RouteGroup $route)
 
     $route->post('/update-post', [RedisApp\Controllers\PostController::class, 'update']);
 
+    $route->post('/delete-post', [RedisApp\Controllers\PostController::class, 'delete']);
+
     $route->post('/updateProfile', [RedisApp\Controllers\UserController::class, 'updateProfile']);
 
     $route->post('/logout', [RedisApp\Controllers\Auth\LogoutController::class, 'logout']);

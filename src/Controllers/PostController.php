@@ -50,7 +50,10 @@ class PostController
         $posts = [];
 
         foreach($postIds as $id){
-            $posts[] = PostHandler::getPost($id, true);
+            $data = PostHandler::getPost($id, true);
+            if(!empty($data)){
+                $posts[] = $data;
+            }
         }
 
         // return jsonResponse($posts);
@@ -164,7 +167,7 @@ class PostController
         $this->client->sadd("voted:$postId", $auth['id']);
         
 
-        return redirect('/posts');
+        return redirect("/posts/$postId");
     }
     
     /**
@@ -258,5 +261,25 @@ class PostController
         $this->client->hincrby("post:$postId", "votes", 1);
         
         return redirect("/posts/$postId");
+    }
+
+    // delete the post
+    public function delete(ServerRequestInterface $request): Response
+    {
+        $auth = authCheck();
+
+        $requestBody = $request->getParsedBody();
+
+        $postId = $requestBody['id'];
+
+        // delete post Hash
+        $this->client->del("post:$postId");
+
+        // deleted Vote set of post
+        $this->client->del("voted:$postId");
+
+        $_SESSION['flash']['success'] = "Post successfully deleted";
+
+        return redirect('/posts');
     }
 }

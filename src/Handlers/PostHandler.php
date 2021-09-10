@@ -26,28 +26,30 @@ class PostHandler
      * Return data to method
      */
 
-    public static function getPost($postId, $preview = false): array
+    public static function getPost($postId, $preview = false)
     {
         $self = new static; // instantiate object
 
         $post = $self->client->hgetall("post:$postId");
 
-        if(empty($post['user_id'])) return [];
+        // if(empty($post['user_id'])) return [];
 
-        $post['id'] = $postId;
-        $user = $self->client->hgetall("user:{$post['user_id']}");
-        $post['user'] = [
-            'id' => $post['user_id'],
-            'username' => $user['username'],
-        ];
+        if(!empty($post['user_id'])){
+            $post['id'] = $postId;
+            $user = $self->client->hgetall("user:{$post['user_id']}");
+            $post['user'] = [
+                'id' => $post['user_id'],
+                'username' => $user['username'],
+            ];
 
-        $post['time'] = date("Y-m-d g:i:s a", (int) $post['time']);
+            $post['time'] = date("Y-m-d g:i:s a", (int) $post['time']);
 
-        if($preview){
-            $post['body'] = substr($post['body'], 0, 250);
+            if($preview){
+                $post['body'] = substr($post['body'], 0, 250);
+            }
+
+            return $post;
         }
-
-        return $post;
     }
 
     public static function getUserPosts($username, $start = 0, $stop = -1): array
@@ -61,9 +63,11 @@ class PostHandler
         foreach($postsIds as $id){
             $data = PostHandler::getPost($id);
 
-            $data['body'] = substr($data['body'], 0, 250);
-
-            $posts[] = $data;
+            if(!empty($data)){
+                $data['body'] = substr($data['body'], 0, 250);
+    
+                $posts[] = $data;
+            }
         }
 
         return $posts;
