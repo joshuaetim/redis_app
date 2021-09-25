@@ -1,6 +1,6 @@
 # RedisApp
 
-RedisApp is an attempt to use Redis as a primary database instead of a caching system. The application built with this feature is a blog with a score/ranking functionality. Redis data types like Hash, Set, Sorted Set, and Lists are used to store different categories of data used by the application.
+RedisApp is an attempt to use Redis as a primary database to improve database read/write performance. The application built with this feature is a blog with a score/ranking functionality. Redis data types like Hash, Set, Sorted Set, and Lists are used to store different categories of data used by the application.
 
 ## Installation
 
